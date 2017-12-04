@@ -20,10 +20,10 @@ Since it's an auto plugin with no dependencies, you don't have to import
 anything. By default the plugin provides 3 tasks:
 * `dockerComposeUp`: launch a new instance using your docker-compose.yml
 * `dockerComposeDown`: stop and remove a running instance.
-* `dockerComposeInstanceId`: return the ID the of the running docker-compose instance.
+* `dockerComposeInstanceId`: return the ID of the running docker-compose instance.
 
-If you execute the `dockerComposeUp` then it will generate and a new instance
-id using the following format: `sbt` + `SBT's PID` + `dockerComposeBaseName`.
+If you execute the `dockerComposeUp` then it will generate a new instance
+id using the following format: "sbt" + SBT's PID + `dockerComposeBaseName`.
 The `dockerComposeBaseName` is "docker" by default, so for example instance id
 can be `sbt75215docker`. If you are using multi project setup and every project
 should a have a different instance then you can separate them by setting
@@ -38,15 +38,15 @@ a failed job.
 
 ```
 dockerComposeOptions in Test := {
-        val id = dockerComposeInstanceId.value
-        Seq("-Dredis.slave.port=" + DockerComposePlugin.getPort(id, "redis"))
+  val id = dockerComposeInstanceId.value
+  Seq("-Dredis.slave.port=" + DockerComposePlugin.getPort(id, "redis"))
 },
 javaOptions in Test ++= (dockerComposeOptions in Test).value,
 test in Test <<= {
-        Def.sequential(
-          (test in Test).dependsOn(dockerComposeUp),
-          dockerComposeDown
-        )
+  Def.sequential(
+    (test in Test).dependsOn(dockerComposeUp),
+    dockerComposeDown
+  )
 }
 ```
 
