@@ -8,7 +8,7 @@ $PROJECT_ROOT/docker/docker-compose.yml - and control them via SBT tasks.
 
 ## Installation
 
-You can add it your plugins file:
+You can add it to your plugins file:
 
 ```
 addSbtPlugin("com.kinja" % "sbt-docker-compose" % "0.1.0")
